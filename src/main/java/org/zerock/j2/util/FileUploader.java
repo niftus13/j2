@@ -53,7 +53,7 @@ public class FileUploader {
                 FileCopyUtils.copy(in,out);
 
                 if (makeThumbnail) {
-                    File thumbOutFile = new File(path, "S_" + fileName);
+                    File thumbOutFile = new File(path, "s_" + fileName);
                     Thumbnailator.createThumbnail(saveFile, thumbOutFile, 200, 200);
                 }
 
@@ -70,5 +70,23 @@ public class FileUploader {
     }
 
 
+    public void removeFiles(List<String> fileNames){
+
+        if (fileNames == null || fileNames.size()==0){
+            return;
+        }
+        for (String fname : fileNames){
+
+            File original = new File(path, fname);
+            File thumb = new File(path,"s_"+fname);
+
+            if(thumb.exists()){
+                thumb.delete();
+            }
+            original.delete();
+
+        }
+
+    }
 
 }
